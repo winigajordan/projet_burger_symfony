@@ -1,0 +1,105 @@
+{% extends 'base.frontend.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block content %}
+
+    <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">   
+            <div class="col grid-margin stretch-card">
+              {# <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Mes commandes</h4>
+                  
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Reference</th>
+                          <th>Date</th>
+                          <th>Prix</th>
+                          <th>Etat</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Jacob</td>
+                          <td>Photoshop</td>
+                          <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                          <td><label class="badge badge-danger">Pending</label></td>
+                        </tr>
+                        <tr>
+                          <td>Messsy</td>
+                          <td>Flash</td>
+                          <td class="text-danger"> 21.06% <i class="typcn typcn-arrow-down-thick"></i></td>
+                          <td><label class="badge badge-warning">In progress</label></td>
+                        </tr>
+                        <tr>
+                          <td>John</td>
+                          <td>Premier</td>
+                          <td class="text-danger"> 35.00% <i class="typcn typcn-arrow-down-thick"></i></td>
+                          <td><label class="badge badge-info">Fixed</label></td>
+                        </tr>
+                        <tr>
+                          <td>Peter</td>
+                          <td>After effects</td>
+                          <td class="text-success"> 82.00% <i class="typcn typcn-arrow-up-thick"></i></td>
+                          <td><label class="badge badge-success">Completed</label></td>
+                        </tr>
+                        <tr>
+                          <td>Dave</td>
+                          <td>53275535</td>
+                          <td > 98.05% </td>
+                          <td><label class="badge badge-warning">In progress</label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div> #}
+            </div> 
+          </div>
+        </div>
+       </div>
+    </div>
+        <!-- content-wrapper ends -->
+        
+    <div class = 'content-wrapper'>
+        <div class = 'row'>
+            <div class = 'col-8 mx-auto my-5'>
+                <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Mes commandes</h4>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Reference</th>
+                          <th>Date</th>
+                          <th>Prix</th>
+                          <th>Etat</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for cmd in commandes %}
+                        <tr>
+                          <td>{{cmd.reference}}</td>
+                          <td>{{cmd}}</td>
+                          <td > {{cmd.total}} Francs CFA</td>
+                          <td><label class="{% if cmd.statut == 'En attente' %}{{'badge badge-warning'}}  {% endif %} {%  if  cmd.statut == 'En Preparation' %} {{'badge badge-info'}}  {% endif %}   {%if  cmd.statut == 'Attente de paiement' %} {{'badge badge-danger'}}   {% endif %}   {% if  cmd.statut == 'Payé' %} {{'badge badge-success'}} {% endif %}">{{cmd.statut}}</label></td>
+                        </tr>
+                        {% endfor %}
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+        
+
+{% endblock %}

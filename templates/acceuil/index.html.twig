@@ -1,0 +1,86 @@
+{% extends 'base.frontend.html.twig' %}
+
+{% block pageTitle %} Acceuil {% endblock %}
+{% block title %}Acceuil{% endblock %}
+
+
+
+
+{% block content %} 
+
+<!-- products -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+
+			<div class="row">
+                <div class="col-md-12">
+                    <div class="product-filters">
+                        <ul>
+                            
+                            <li class = 'active' data-filter="*">Nos produits</li>
+                            <li data-filter=".menu">Menu</li>
+							<li data-filter=".burger">Burger</li>
+                            
+							<li data-filter=".complement">Complements</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            
+			<div class="row product-lists">
+                {% for burger in burgers %}
+				<div class="col-lg-4 col-md-6 text-center burger">
+                    
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{{path('detail_produit', {'id' : burger.id})}}"><img src="{{asset('front/img/products/product-img-1.jpg')}}" alt=""></a>
+						</div>
+						<h3>{{burger.nom}}</h3>
+						<p class="product-price">{{burger.prix}} <span>FCFA</span> </p>
+						<a href="{{path('panier_add', {'id' : burger.id})}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>  
+				</div>
+                {% endfor %}
+
+
+                {% for menu in menus %}
+				<div class="col-lg-4 col-md-6 text-center menu">
+                    
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{{path('detail_produit', {'id' : menu.id})}}"><img src="{{asset('front/img/products/menu.png')}}" alt=""></a>
+						</div>
+						<h3>{{menu.nom}}</h3>
+						<p class="product-price">{{menu.prix}} <span>FCFA</span> </p>
+						<a href="{{path('panier_add', {'id' : menu.id})}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>  
+				</div>
+                {% endfor %}
+
+				{% for c in complements %}
+				<div class="col-lg-4 col-md-6 text-center complement">
+                    
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{{path('detail_produit', {'id' : c.id})}}"><img src="{{asset('front/img/products/complement.jpg')}}" alt=""></a>
+						</div>
+						<h3>{{c.nom}}</h3>
+						<p class="product-price">{{c.prix}} <span>FCFA</span> </p>
+						<a href="{{path('panier_add', {'id' : c.id})}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>  
+				</div>
+                {% endfor %}
+
+				
+			</div>
+
+			
+		</div>
+	</div>
+	<!-- end products -->
+
+{% endblock %}
+
+

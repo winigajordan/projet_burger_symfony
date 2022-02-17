@@ -1,0 +1,106 @@
+{% extends 'base.dashboard.html.twig' %}
+
+{% block pageTitre %} Gestion des burgers {% endblock %}
+
+{% block content %}
+
+<div class = 'row' >
+
+    <div class = 'col-8'>
+    <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Description(s)</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+                  {% for burger in burgers %}
+                  <tr>
+                    <td>{{burger.nom}}</td>
+                    <td>{{burger.prix}}</td>
+                    <td>{{burger.description}}</td>
+                    <td>{{burger.image}}</td>
+                    <td> 
+                    <a href={{ path('burger_update', {'id': burger.id }) }}>Modifier</a>
+
+                     </td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Description(s)</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+    </div>
+    <div class = 'col-4'>
+    <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Quick Example</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action = "{% if burgerSelect is defined %} {{path('burger_edit')}} {% else %} {{path('burger_save')}} {% endif %}"  method = "POST">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="nomBurger">Nom du burger</label>
+                    <input value="{% if burgerSelect is defined %}{{burgerSelect.id}}{% endif %}" type="text" class="form-control" id="nom" placeholder="Nom du burger" name = 'id' hidden>
+
+                    <input value="{% if burgerSelect is defined %}{{burgerSelect.nom}}{% endif %}" type="text" class="form-control" id="nom" placeholder="Nom du burger" name = 'nom'>
+                  </div>
+                  <div class="form-group">
+                    <label for="prixBurger">Prix</label>
+                    <input value="{% if burgerSelect is defined %}{{burgerSelect.prix}}{% endif %}" type="text" class="form-control" id="prix" placeholder="Prix" name = 'prix'>
+                  </div>
+
+                <div class="form-group">
+                    <label for="prixBurger">Description</label>
+                    <input value="{% if burgerSelect is defined %}{{burgerSelect.description}}{% endif %}" type="text" class="form-control" id="description" placeholder="Description" name = 'description'>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputFile">Image</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name = image>
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            
+            </div>
+            <!-- /.card -->
+    
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.dashboard.html.twig' %}
+
+{% block pageTitre %} Complements {% endblock %}
+
+{% block content %}
+
+<div class="content">
+  <div class="row justify-content-center">
+
+  <!-- Ajout de complements -->
+    <div class="col-6">
+      <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Ajout de complement</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action = "{% if ComplementSelected is defined%} {{path('complement_edit')}} {% else %} {{path('complement_save')}} {% endif %} "  method = "POST">
+            <div class="card-body">
+            <div class = "row">
+            <div class = "col-6">
+            <div class="form-group">
+                <label for="nomBurger">Nom</label>
+                
+                <input value="{% if ComplementSelected is defined%}{{ComplementSelected.nom}}{% endif %}" type="text" class="form-control" id="nom" placeholder="Nom du complement" name = 'nom'>
+                <input value="{% if ComplementSelected is defined%}{{ComplementSelected.id}}{% endif %}" type="text" class="form-control" id="nom" placeholder="Nom du complement" name = 'id' hidden>
+              </div>
+            </div>
+            <div class = "col-6">
+            <div class="form-group">
+                <label for="prixBurger">Prix</label>
+                <input value="{% if ComplementSelected is defined%}{{ComplementSelected.prix}}{% endif %}" type="text" class="form-control" id="prix" placeholder="Prix du complement" name = 'prix'>
+              </div>
+            </div>
+            </div>
+              
+            <div class = "row">
+                <div class = "col-6">
+                <div class="form-group">
+                    <label for="exampleInputFile">Image</label>
+                    <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name = image>
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                    </div>
+                    
+                    </div>
+                </div>
+                </div>
+                <div class = "col-6">
+                    <label for="prixBurger">Categorie du complement</label>
+                    <select class="form-control" name = 'categorie' value = "{% if ComplementSelected is defined%}{{ComplementSelected.Categorie.nom}}{% endif %}">
+
+                      {% for cat in categories %}
+                        <option value = '{{cat.id}}'> {{cat.nom}} </option>
+                      {% endfor %}
+                        
+                    </select>
+                </div>
+            </div> 
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+    <!-- formulaire de liste des complements -->
+    <div class = 'col'>
+    
+    <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Liste des Complements</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Prix</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+                  {% for c in complements %}
+                  <tr>
+                    <td>{{c.nom}}</td>
+                    <td>{{c.prix}} </td>
+                    <td>{{c.Categorie.nom}}</td>
+                    <td >
+                      <img src ={{c.image}} style="width:75px;height:75"></img>
+                    </td>
+                    
+                    <td> 
+                        <a href="{{path('complement_update', {'id': c.id })}}">Modifier</a>
+                     </td>
+                  </tr>
+                  
+                {% endfor %}
+
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Prix</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+    </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

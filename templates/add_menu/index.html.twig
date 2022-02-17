@@ -1,0 +1,111 @@
+{% extends 'base.dashboard.html.twig' %}
+
+{% block pageTitre %} Gestion des Menu {% endblock %}
+
+{% block content %}
+
+<div class = "row">
+<div class= "col-lg-8">
+
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Liste des Menu</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Description(s)</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+                  {% for menu in menus %}
+                  <tr>
+                    <td>{{menu.nom}}</td>
+                    <td>{{menu.prix}}</td>
+                    <td>{{menu.description}}</td>
+                    <td>Image du menu</td>
+                    <td> 
+                        <a href="#">Modifier</a>
+                     </td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Description(s)</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+</div>
+
+
+
+{# Formulaire ajout menu#}
+<div class= "col-lg-4">
+
+    <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Quick Example</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action = "{{path('menu_save')}}"  method = "POST">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="nomBurger">Nom du menu</label>
+                    <input value="" type="text" class="form-control" id="nom" placeholder="Nom du menu" name = 'id' hidden>
+
+                    <input value="" type="text" class="form-control" id="nom" placeholder="Nom du menu" name = 'nom'>
+                  </div>
+                  <div class="form-group">
+                    <label for="prixBurger">Prix</label>
+                    <input value="" type="text" class="form-control" id="prix" placeholder="Prix" name = 'prix'>
+                  </div>
+
+                <div class="form-group">
+                    <label for="prixBurger">Description</label>
+                    <input value="" type="text" class="form-control" id="description" placeholder="Description" name = 'description'>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputFile">Image</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name = image>
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+ 
+
+</div>
+</div>
+
+{% endblock %}

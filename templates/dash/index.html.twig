@@ -1,0 +1,213 @@
+{% extends 'base.dashboard.html.twig' %}
+
+{% block pageTitre %} Tableau de bord {% endblock %}
+
+{% block content %}
+
+<section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{en_attente}}</h3>
+
+                <p>Commandes en attente</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">Gerer les commandes </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{paye}}</h3>
+
+                <p>Commandes validés</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer"> -- </a> 
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>100<sup style="font-size: 20px"> XOF</sup></h3>
+
+                <p>Recette de la journée</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+               <a href="#" class="small-box-footer"> -- </a> 
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Menus</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{{path('add_menu')}}" class="small-box-footer">Gestion Menu </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Burgers</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="{{path('burger')}}" class="small-box-footer">Gestion Burgers  </i></a>
+            </div>
+          </div>
+{% endblock %}
+
+
+
+{% block cmd_list %}
+            
+                
+                
+                <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Liste des commandes</h4>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                      
+                        <tr>
+                          <th>Reference</th>
+                          <th>Date</th>
+                          <th>Prix</th>
+                          <th>Etat</th>
+                          <th>Action</th>
+                        </tr>
+                      
+                      </thead>
+                      <tbody>
+                        {% for cmd in commandes %}
+                        <tr>
+                          <td>{{cmd.reference}}</td>
+                          <td>{{cmd}}</td>
+                          <td > {{cmd.total}}</td>
+                          <td ><label class="{% if cmd.statut == 'En attente' %}{{'badge badge-warning'}}  {% endif %} {%  if  cmd.statut == 'En Preparation' %} {{'badge badge-info'}}  {% endif %}   {%if  cmd.statut == 'Attente de payement' %} {{'badge badge-danger'}}   {% endif %}   {% if  cmd.statut == 'Payé' %} {{'badge badge-success'}} {% endif %}">{{cmd.statut}}</label></td>
+                          <td>
+                          <a  href = "{{path('dash_cmd_details', {'id': cmd.id })}}">
+                              Afficher details
+                          </a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            
+
+
+{% endblock %}
+
+
+{% block detailClient %}
+
+<div class="card card-primary ">
+              <div class="card-header">
+                <h3 class="card-title">Infos Clients</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action = "{% if commande is defined %} {{path('dash_cmd_update')}} {% endif %}"  method = "POST">
+                <div class="card-body">
+                <div class="form-group">
+                <label for="nomBurger">Nom</label>
+                
+                <input value="{% if client is defined%}{{client.nom}}{% endif %}" type="text" class="form-control" id="nom" placeholder="Nom du client" name = 'nom'>
+                 </div>
+                  <div class="form-group">
+                    <label for="prixBurger">Numero de telephone</label>
+                    <input value="{% if commande is defined%}{{commande.id}}{% endif %}" type="text" class="form-control" id="tel" placeholder="Telephone du client" name = 'id' hidden>
+                   <input value="{% if client is defined%}{{client.telephone}}{% endif %}" type="text" class="form-control" id="tel" placeholder="Telephone du client" name = 'tel'>
+                  </div>
+                  <div>
+                    <label for="prixBurger">Statut de la commande</label>
+                    <select class="form-control" name = 'status'>
+                        <option > En Preparation </option> 
+                        <option > Attente de payement </option>
+                        <option > Payé </option>
+                        <option > Annulé </option>
+                    </select>
+                </div>
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Mettre à jour la commande</button>
+                </div>
+              </form>
+            
+            </div>
+
+
+{% endblock %}
+
+
+{% block detailsCommande %}
+
+  <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Produits de la comande</h4>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                      
+                        <tr>
+                          <th>Produit</th>
+                          <th>Quantite</th>
+                          <th>Prix total</th>
+                          
+                        </tr>
+                      
+                      </thead>
+                      <tbody>
+                      {% if details is defined %}
+                        {% for dtl in details %}
+                        <tr>
+                          
+                          <td>{{dtl.produit.nom}}</td>
+                          <td > {{dtl.quantite}}</td>
+                          <td ><label class= 'badge badge-success'>{{dtl.total}}</label></td>
+                          
+                        </tr>
+                        {% endfor %}
+                      {% endif %}  
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+ {% endblock %}

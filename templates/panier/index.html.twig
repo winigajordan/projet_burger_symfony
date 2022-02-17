@@ -1,0 +1,74 @@
+{% extends 'base.frontend.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block content %}
+
+
+	<!-- cart -->
+    <form method = 'post' action = '{{path('panier_update')}}'>
+	<div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									
+									<th class="product-image">Nom du Product</th>
+									
+									<th class="product-price">Prix</th>
+									<th class="product-quantity">Quantite commandé</th>
+									<th class="product-total">Prix Total</th>
+								</tr>
+							</thead>
+							<tbody>
+                            {% for item in cartItem %}
+								<tr class="table-body-row">
+									
+									<td class="product-image"> {{item.produit.nom}}</td>
+									
+									<td class="product-price">{{item.produit.prix}}</td>
+									<td class="product-quantity"><input type="number" placeholder="0" value = '{{item.qte}}' name = '{{item.produit.id}}'></td>
+									<td class="product-total">{{item.produit.prix * item.qte}}</td>
+								</tr>
+							{% endfor %}	
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="total-section">
+						<table class="total-table">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Subtotal: </strong></td>
+									<td>$500</td>
+								</tr>
+								
+								
+							</tbody>
+						</table>
+						<div class="cart-buttons">
+							<input type = 'submit' value = 'Update' class="boxed-btn">
+							<a href="{{path('commande_add')}}" class="boxed-btn">Check Out</a>
+						</div>
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+    </form>
+	<!-- end cart -->
+
+{% endblock %}

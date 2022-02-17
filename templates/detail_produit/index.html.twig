@@ -1,0 +1,37 @@
+{% extends 'base.frontend.html.twig' %}
+
+{% block pageTitle %} Detail Produit {% endblock %}
+{% block title %}Detail Produit{% endblock %}
+
+{% block content %}
+<!-- single product -->
+	<div class="single-product mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="single-product-img">
+						<img src="{{asset('front/img/products/product-img-5.jpg')}}" alt="">
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="single-product-content">
+						<h3>{{produitSelectionne.nom}}</h3>
+						<p class="single-product-pricing">{{produitSelectionne.prix}}<span>Francs CFA</span></p>
+						<p>{{produitSelectionne.description}}</p>
+						<div class="single-product-form">
+							<form action="{{path('panier_add_qte')}}" method = 'POST'>
+								<input type="number" placeholder="0" name = 'id' value = '{{produitSelectionne.id}}' hidden>
+								<input type="number" placeholder="0" name = 'qte' value = '{{qteSelectionne}}'>
+								<input type = 'submit' class="cart-btn" value = 'Ajouter au panier'>
+							</form>
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end single product -->
+
+{% endblock %}
